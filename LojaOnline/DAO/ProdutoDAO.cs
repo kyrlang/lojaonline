@@ -15,7 +15,7 @@ namespace LojaOnline.DAO
         public IList<Produtos> Listar()
         {
             IList<Produtos> produto = new List<Produtos>();
-
+            
             try
             {
                 using (var context = new LojaOnlineContext())
