@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LojaOnline.DAO;
+using LojaOnline.Geral;
 using LojaOnline.Models;
 
 namespace LojaOnline.Controllers
@@ -14,7 +15,7 @@ namespace LojaOnline.Controllers
         public ActionResult Index()
         {
             if (Session["ItensPedido"] != null)
-                return View();
+                return View(Session["ItensPedido"]);
             else
                 return RedirectToAction("Index", "Home");
         }
@@ -100,10 +101,26 @@ namespace LojaOnline.Controllers
         public ActionResult Finalizar()
         {
             if (Session["usuarioLogado"] == null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Login");
             else
-                EnviarEmail();
+            {
+                try
+                {
+                    Usuarios usuario = (Usuarios)Session["usuarioLogado"];
+                    List<ItensCarrinho> itensCarrinho = (List<ItensCarrinho>)Session["ItensPedido"];
+                    CarrinhoDAO carrinhoDAO = new CarrinhoDAO();
+                    carrinhoDAO.Inserir(itensCarrinho, usuario.Id);
+                    EnviarEmail();
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Mensaegem = "Ocorreu um erro ao enviar o e-mail, e seu pedido não foi finalizado. Tente novamente.";
+                    return View("_Erro");
+                }
+                
+            }
 
+            Session.Remove("ItensPedido");
             return View();
         }
 
@@ -118,6 +135,8 @@ namespace LojaOnline.Controllers
         }
 
         private void EnviarEmail() {
+
+            EnviarEmail enviarEmail = new EnviarEmail();
 
             IList<ItensCarrinho> itensCarrinhoAux = (List<ItensCarrinho>)Session["ItensPedido"];
             string html = string.Empty;
@@ -143,18 +162,29 @@ namespace LojaOnline.Controllers
             {
                 html2 = @"<tr>
                             <td>" + item.Produto + @"</td>" +
-                           "<td> " + item.Quantidade + @" </td>" +
-                           "<td> " + item.Valor.ToString("0:N") + @" </td>";
+                           "<td>" + item.Quantidade + @" </td>" +
+                           "<td>R$ " + item.Valor.ToString("N2") + @" </td>";
 
                 valor = valor + item.Valor;
             }
 
             html = html + html2 + @"</tbody>
                                     </table>";
-            html = @"<h2>O valor total do pedido é: R$ " + valor.ToString("0:N") + @"</h2>" +
+            html = html + @"<h2>O valor total do pedido é: R$ " + valor.ToString("N2") + @"</h2>" +
                                                                                 @"</body>
                                                                             </html>";
 
+
+            try
+            {
+                Usuarios usu = (Usuarios)Session["usuarioLogado"];
+                string[] usuario = { usu.Email.ToString() };
+                enviarEmail.Send(usuario, html);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

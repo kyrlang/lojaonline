@@ -34,7 +34,7 @@ namespace LojaOnline.DAO
             try
             {
                 using (var context = new LojaOnlineContext())
-                    usuario = context.Usuarios.Where(u => u.Email == email && u.Senha == senha).First();
+                    usuario = context.Usuarios.Where(u => u.Email == email && u.Senha == senha).SingleOrDefault();
             }
             catch (Exception ex)
             {

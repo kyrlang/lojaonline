@@ -25,7 +25,8 @@ namespace LojaOnline.Controllers
                     usuario.VerificarEmail(usu.Email);
                     usuario.Inserir(usu);
 
-                    Session["usuarioLogado"] = usu.Email;
+                    Session["usuarioLogado"] = usu;
+                    Session["email"] = usu.Email;
                 }
             }
             catch (EmailCadastradoException ex)
@@ -50,10 +51,14 @@ namespace LojaOnline.Controllers
         {
             try
             {
-                UsuarioDAO usuario = new UsuarioDAO();
-
-                if (usuario.ListarUsuario(usu.Email, usu.Senha) != null)
-                    Session["usuarioLogado"] = usu.Email;
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                Usuarios usuario = new Usuarios();
+                usuario = usuarioDAO.ListarUsuario(usu.Email, usu.Senha);
+                if (usuario != null)
+                {
+                    Session["usuarioLogado"] = usuario;
+                    Session["email"] = usuario.Email;
+                }
                 else
                     return View("Index");
             }
@@ -61,7 +66,11 @@ namespace LojaOnline.Controllers
             {
                 throw;
             }
-            return RedirectToAction("Index", "Home");
+
+            if (Session["ItensPedido"] != null)
+                return RedirectToAction("Index", "Carrinho");
+            else
+                return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Logout()

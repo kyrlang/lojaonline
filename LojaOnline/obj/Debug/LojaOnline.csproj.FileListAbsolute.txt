@@ -48,3 +48,5 @@ F:\Projetos\LojaOnline\LojaOnline\obj\Debug\LojaOnline.Migrations.alterprodutode
 F:\Projetos\LojaOnline\LojaOnline\obj\Debug\LojaOnline.Migrations.Usuario.resources
 F:\Projetos\LojaOnline\LojaOnline\obj\Debug\LojaOnline.Migrations.Usuarios.resources
 F:\Projetos\LojaOnline\LojaOnline\obj\Debug\LojaOnline.Migrations.carrinho.resources
+F:\Projetos\LojaOnline\LojaOnline\obj\Debug\LojaOnline.Migrations.alterusuariorequired.resources
+F:\Projetos\LojaOnline\LojaOnline\obj\Debug\LojaOnline.Migrations.ok.resources

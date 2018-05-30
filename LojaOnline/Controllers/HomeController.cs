@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LojaOnline.DAO;
+using LojaOnline.Geral;
 using LojaOnline.Models;
 
 namespace LojaOnline.Controllers
@@ -39,6 +41,26 @@ namespace LojaOnline.Controllers
         public ActionResult Sobre()
         {
             return View();
+        }
+
+        public ActionResult ConfigurarSMTP(FormCollection data)
+        {
+
+            if (data.Count > 0)
+            {
+                    EnviarEmail enviarEmail = new EnviarEmail();
+                    enviarEmail.ConfigurarSmtp(data["from"].ToString(), data["smtp"].ToString(), data["senha"].ToString(), data["usuario"].ToString());
+                    ViewBag.Mensaegem = "A configuração foi realizada com sucesso.";
+                    return View("Mensagem");
+            }
+            else
+            {
+                data.Add("from", (ConfigurationManager.AppSettings["from"].ToString() == string.Empty) ? null : ConfigurationManager.AppSettings["from"].ToString());
+                data.Add("smtp", (ConfigurationManager.AppSettings["smtp"].ToString() == string.Empty) ? null : ConfigurationManager.AppSettings["smtp"].ToString());
+                data.Add("usuario", (ConfigurationManager.AppSettings["usuario"].ToString() == string.Empty) ? null : ConfigurationManager.AppSettings["usuario"].ToString());
+                data.Add("senha", (ConfigurationManager.AppSettings["senha"].ToString() == string.Empty) ? null : ConfigurationManager.AppSettings["senha"].ToString());
+                return View(data);
+            }
         }
     }
 }

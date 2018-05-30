@@ -120,8 +120,15 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Shared\_PMenuSuperior.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\Produto\ProdutoCategoria.cshtml" />
@@ -137,14 +144,17 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
+    <Compile Include="DAO\CarrinhoDAO.cs" />
     <Compile Include="DAO\CategoriaDAO.cs" />
     <Compile Include="DAO\DepartamentoDAO.cs" />
     <Compile Include="DAO\EmailCadastradoException.cs" />
     <Compile Include="DAO\ProdutoDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
+    <Compile Include="Geral\EnviarEmail.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Intarfaces\ICarrinho.cs" />
     <Compile Include="Intarfaces\ICategoria.cs" />
     <Compile Include="Intarfaces\IDepartamento.cs" />
     <Compile Include="Intarfaces\IProduto.cs" />
@@ -197,6 +207,14 @@
     <Compile Include="Migrations\201805270435341_carrinho.Designer.cs">
       <DependentUpon>201805270435341_carrinho.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805290409252_alterusuariorequired.cs" />
+    <Compile Include="Migrations\201805290409252_alterusuariorequired.Designer.cs">
+      <DependentUpon>201805290409252_alterusuariorequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805301737455_ok.cs" />
+    <Compile Include="Migrations\201805301737455_ok.Designer.cs">
+      <DependentUpon>201805301737455_ok.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Carrinhos.cs" />
     <Compile Include="Models\Departamentos.cs" />
@@ -218,6 +236,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Carrinho\Index.cshtml" />
+    <Content Include="Views\Home\ConfigurarSMTP.cshtml" />
+    <Content Include="Views\Shared\_Erro.cshtml" />
+    <Content Include="Views\Carrinho\Finalizar.cshtml" />
+    <Content Include="Views\Home\Sobre.cshtml" />
+    <Content Include="Views\Home\Contato.cshtml" />
+    <Content Include="Views\Home\Mensagem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -262,10 +286,14 @@
     <EmbeddedResource Include="Migrations\201805270435341_carrinho.resx">
       <DependentUpon>201805270435341_carrinho.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805290409252_alterusuariorequired.resx">
+      <DependentUpon>201805290409252_alterusuariorequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805301737455_ok.resx">
+      <DependentUpon>201805301737455_ok.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exception\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

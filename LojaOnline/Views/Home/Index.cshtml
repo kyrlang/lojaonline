@@ -1,4 +1,4 @@
-﻿<div class="hero-unit">
+﻿<div class="hero-unit span12">
     <h1>Queima de estoque</h1>
     <p>Monitores com 20% de desconto no cartão de crédito</p>
 </div>
@@ -10,7 +10,7 @@
             <h3>@produto.Nome</h3>
             <p>@produto.Descricao</p>
             <p class="navbar-text pull-left">
-                R$ @produto.Preco
+                R$ @produto.Preco.ToString("0.00")
                 
                 @Html.ActionLink("Comprar", "AdicionarItem", "Carrinho", new { produtoId = produto.Id}, new {@class = "btn-navbar" })
             </p>

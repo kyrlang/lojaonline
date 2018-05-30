@@ -8,13 +8,14 @@
                 <li>@Html.ActionLink("Sobre", "Sobre", "Home")</li>
                 <li>@Html.ActionLink("Contato", "Contato", "Home")</li>
                 <li>@Html.ActionLink("Carrinho", "Index", "Carrinho")</li>
+                <li>@Html.ActionLink("Configurar SMTP", "ConfigurarSMTP", "Home")</li>
             </ul>
             <p class="navbar-text pull-right">
-                @if (Session["usuarioLogado"] != null)
+                @if (Session["email"] != null)
                 {
                     @:Bem vindo
                     @:,
-                    @Session["usuarioLogado"]
+                    @Session["email"]
                     @:
                     @Html.ActionLink("Logout", "Logout", "Login")
                 }
